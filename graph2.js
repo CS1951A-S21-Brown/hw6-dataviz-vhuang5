@@ -143,7 +143,7 @@ function set_map(N, region){
     });
 }
 
-//clean data, getting hashmap
+//clean data, return hashmap of countries as keys and values as a hashmap of genre, total sale KV pairs
 function get_top_regions(data){
     var genre_NA = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     var genre_EU = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   

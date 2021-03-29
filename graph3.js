@@ -75,31 +75,32 @@ function set_graph3(N, genre){
 
         let arcc = d3.arc().innerRadius(0).outerRadius(radius3)
 
-        // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
+                // build slices using the arcc variable
         build_pie.enter()
             .append('path')
             .on("mouseover", mouseover)
             .on("mouseout", function(d) {tooltip_3.transition().duration(300).style("opacity", 0);})
             .merge(build_pie)
             .transition()
-            .duration(1000)
+            .duration(1000)//make transitions clean
             .attr('d', arcc)
             .attr('fill', function(d){ return(color(d.data.key)) })
             .attr("transform", function(d,i){
-                return `translate(${(margin.left - 350)} , ${margin.top - 25})`; // place each legend on the right and bump each one down 15 pixels
+                return `translate(${(margin.left - 350)} , ${margin.top - 25})`; //Set pie graph location
               })
             .attr("stroke", "white")
             .style("stroke-width", "2px")
             .style("opacity", 1)
 
-        // remove the group that is not present anymore
         build_pie.exit().remove()
-        // }
+        
         //make a legend
  
         let my_legend = svg3.select("g.legend");
+
         my_legend.exit().remove()
 
+        //make color squares for legend
         let rectangles = my_legend.selectAll("rect")
             .data(pie(d3.entries(data)))
             .enter()
@@ -115,8 +116,9 @@ function set_graph3(N, genre){
               .attr("transform", function(d,i){
                 return `translate(${(graph_3_width - 500)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
               });
-            
-        var text_elem = my_legend.selectAll("text") 
+              
+        //match text and color squares
+        let text_elem = my_legend.selectAll("text") 
             .data(pie(d3.entries(data)))
             .enter()
             .append("text");
