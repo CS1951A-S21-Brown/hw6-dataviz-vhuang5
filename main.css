@@ -1,6 +1,7 @@
 .header {
     padding-bottom: 20px;
     margin-bottom: 20px;
+    background: #ADD8E6;
 }
 
 .header > h3, h5 {
@@ -8,5 +9,17 @@
     padding-top: 20px;
     text-align: center;
 }
+
+.col-lg-6 > p {
+    margin-right: 50px;
+    margin-left: 50px;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.col-lg-6 > form {
+    text-align: center;
+}
+
 
 /* Include any custom CSS styling here! */

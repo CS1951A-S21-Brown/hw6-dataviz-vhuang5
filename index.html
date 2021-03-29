@@ -7,22 +7,100 @@
         <link rel="stylesheet" href="main.css"/>
         <!--Feel free to add more CSS files as needed-->
         <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+        <!-- <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+        <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script> -->
     </head>
 <body>
     <div class="header">
-        <h3>Assignment 6 &laquo; Data Visualization Dashboard &raquo;</h3>
+        <h3>Assignment 6 &laquo; Video Games &raquo;</h3>
     </div>
     <!--  We included a basic HTML structure for the 3 graphs here. Feel free to change this if you'd like  -->
     <div class="row">
         <div class="col-lg-6">
             <div id="graph1"></div>
-            <div id="graph2"></div><br/>
+            <p style="font-size: 10px;" > *Titles from different consoles are considered seperate entities
+            </p>
+            <div id="graph2"></div>
+                <form name = "thisForm">
+                    <label> Choose number of video games to be included, then click a region to apply changes</label><br>
+                    <label for="numb">Top (0-16600) Video Games: </label><br>
+                    <input type="number" id="numb" value=0 min=0 max=16600><br>
+                    <label>Region: </label><br>
+                    <input Type=Button class="btn btn-info" Value="NA" onClick="set_map(thisForm.numb.value, 'NA')">
+                    <input Type=Button class="btn btn-info" Value="EU" onClick="set_map(thisForm.numb.value, 'EU')">
+                    <input Type=Button class="btn btn-info" Value="Japan" onClick="set_map(thisForm.numb.value, 'JP')">
+                    <input Type=Button class="btn btn-info" Value="Other" onClick="set_map(thisForm.numb.value, 'Other')">
+                </form><br/>
+                <p style="font-size: 10px;" > 
+                    *top is defined as most sales in the region <br/></p>
+                <p style="font-size: 17px;" > 
+                    Written Questions: <br/></p>
+                <p style="font-size: 12px;" > 
+                    For Extra Credit: I implemented statistical analysis in my second graph where, for each genre X I calculated the percentage of X genre games sold 
+                    compared to the total game sales of said region. This is statistical because it gives information on how the proportion of each genre compared to 
+                    the whole population of genres, this can give extra information to users by telling them not only which genre is the most popular, but also the magnitude
+                    of how popular it is compared to other genres.
+                </p>
+                <p style="font-size: 12px;" > 
+                    1) For question 1, I implemented a bar graph which was an appropriate choice to show the top ten most popular games. I just took the top 10 games from the csv file because the games
+                    are already sorted from greatest to least in terms of global sales. The bar graph allows the user to see the top ten games and how each compares to the rest of the top ten. Note that
+                    I counted the games with the same name but different consoles as seperate entities.<br>
+                    2) For question 2 I implemented a pie graph in which the user can consider a custom number of games in which to find most popular genre by region and which
+                    region the pie graph displays. The reason I chose a pie graph was because I not only wanted to show which genre was the most popular in the region, but also
+                    how that genre compared to the rest of the genres in the region. This is important because sometimes there may be a very clear dominant genre while other cases 
+                    (depending on region and number of video games considered) there won't be. I define "popular" by the total number of sales in the selected region.<br>
+                    3) For question 3 I also implemented a pie graph which, similar to question 2, shows the relation of each publisher per genre to other. I define popularity
+                    by global sales in this case.
+                </p>
         </div>
         <div class="col-lg-6">
             <div id="graph3"></div>
+            <form name = "thisForm2">
+                <label> Choose number of video games to be included, then choose a genre</label><br>
+                <label for="numb">Top (0-16600) Video Games: </label><br>
+                <input type="number" id="numb" value=0 min=0 max=16600><br>
+                <label for="numb">Genre: </label><br>
+                <input type="text" id="genre" placeholder="Ex: Action" value=""><br>
+                <input Type=Button class="btn btn-info" Value="Submit" onClick="set_graph3(thisForm2.numb.value, thisForm2.genre.value)">
+            </form><br/>
+            <p style="font-size: 10px;" > 
+                *top is defined as most global sales <br/></p>
+                <p style="font-size: 17px;" > 
+                    Written Questions (cont): <br/></p>
+                <p style="font-size: 12px;" > 
+                    1) D3's interactive elements allowed me to display a tooltip in graphs 2 and 3 which display alot of information about each slice of the pie graphs (statistics, labels, quantities etc.)<br>
+                    2) D3 allowed for toggling of graphs which gave users alot of freedom to display the information valuable to them (which region they would like/which genre they would like)<br>
+                    3) D3 was a great tool in terms of creating clean graphs with clean transitions, aesthetically the information is pleasing to look at and readable
+                </p>
+                <p style="font-size: 12px;" > 
+                    1) For simple static graphs, I feel that using a different method of data visualization (python libraries) is much simpler and intuitive to use <br>
+                    2) You also need to have some knowledge of html and web design in order to fully take advantage of D3, this could inhibit some people<br>
+                    3) You need to manually design each component of each graph, this is time consuming but worth it if you need a large degree of customization. Otherwise
+                    it is tedious
+                </p>
+                <p style="font-size: 17px;" > 
+                    Accesible Data Visualization: <br/></p>
+                <p style="font-size: 12px;" > 
+                    4) In “A Comprehensive Guide to Accessible Data Visualization,” a great deal of emphasis was put on accessibility for those with visual impairments. This means
+                    picking a color palate that caters towards those with color-blindness. Those with only color blindness could easily navigate my dashboard due to my 
+                    choice of colors as well as tooltips in case a specific color is easily confused with another. I also seperated bars, slices of each graph in order to allow color-blind
+                    users to better differentiate between bars/slices. However, those who are completely blind would find it difficult
+                    to use text to speach programs to navigate my dashboard. Graphs 2 and 3 have toggle elements which are not buttons, but rather custom inputs. If I were to make
+                    the dashboard easier but less aesthetically pleasing I would add buttons for every possible genre in graph 3, this way the blind user could iterate through
+                    each button for all the possible genres and have text to speach assistance reading each option to them. 
+                </p>
+                <p style="font-size: 12px;" > 
+                    5) When designing the interactive capabilities of the graphs, I have created alternative methods, such as more buttons, to guide text
+                    to speach users better than the custom inputs I have right now. However, this is a tradeoff between aesthetics and inclusiveness, which should not
+                    be a debate but if I were pushing this dashboard I would simply have two versions, one with more button options and one without. Furthermore,
+                    I could have included tooltips on the bar graph to help vision impaired users get more info about each bar, the reason I did not was simply
+                    out of time constraint.
         </div>
     </div>
     <!--Feel free to add more JavaScript files as needed-->
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="graph1.js"></script>
+    <script type="text/javascript" src="graph2.js"></script>
+    <script type="text/javascript" src="graph3.js"></script>
 </body>
 </html>
