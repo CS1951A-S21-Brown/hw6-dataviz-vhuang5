@@ -48,8 +48,8 @@
                     2) For question 2 I implemented a pie graph in which the user can consider a custom number of games in which to find most popular genre by region and which
                     region the pie graph displays. The reason I chose a pie graph was because I not only wanted to show which genre was the most popular in the region, but also
                     how that genre compared to the rest of the genres in the region. This is important because sometimes there may be a very clear dominant genre while other cases 
-                    (depending on region and number of video games considered) there won't be. I define "popular" by the total number of sales in the selected region. I attempted
-                    to implement a dynamic legend but it was not working, the colors and labels are accurate though.<br>
+                    (depending on region and number of video games considered) there won't be. I define "popular" by the total number of sales in the selected region. Note that I leave
+                    the legend unchanged even if the slice is not visable on the pie graph (technically is registered but has value 0). Legend remains accurate for the pie graph though.<br>
                     3) For question 3 I also implemented a pie graph which, similar to question 2, shows the relation of each publisher per genre to other. I define popularity
                     by global sales in this case.
                 </p>
@@ -65,7 +65,7 @@
                 <input Type=Button class="btn btn-info" Value="Submit" onClick="set_graph3(thisForm2.numb.value, thisForm2.genre.value)">
             </form><br/>
             <p style="font-size: 10px;" > 
-                *top is defined as most global sales <br/></p>
+                *top is defined as most global sales, only top 10 publishers are displayed so as to maintain legibility <br/></p>
                 <p style="font-size: 17px;" > 
                     Written Questions (cont): <br/></p>
                 <p style="font-size: 12px;" > 

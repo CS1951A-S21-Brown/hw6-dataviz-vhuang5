@@ -26,10 +26,17 @@ let title = svg2.append("text")
 
     //dynamically change graph 
 function set_map(N, region){
-    console.log(region)
+    d3.select("#graph2").select("g").select("g").selectAll("text").remove()
+    d3.select("#graph2").select("g").select("g").selectAll("rect").remove()
     d3.csv(filename).then(function(data) {
         data = get_top_regions(data.slice(0,N))
         data = data[region]
+        for (var key in data){
+            if (!data[key] > 0){
+                delete data[key];
+            }
+        }
+        console.log(data)
         total_sales = 0.0
         max = 0.0
         max_key = ""
@@ -51,7 +58,7 @@ function set_map(N, region){
         // Mouseover function
     let mouseover = function(d) {
         let html = `<br/>Genre: ${d.data.key}</span><br/>
-                Percentage of total sales in ${region}: ${Math.round(d.data.value/total_sales * 100)}%</span>`;
+                Percentage of total sales: ${Math.round(d.data.value/total_sales * 100)}%</span>`;
 
     // Set position of tool tip and change opacity to 0.9 (show tooltip on hover)
         tooltip.html(html)
@@ -164,7 +171,6 @@ function get_top_regions(data){
         hash_countries.Other[n] += parseFloat(a.Other_Sales)
         hash_countries.Global[n] += parseFloat(a.Global_Sales)
     });
-
     return hash_countries;
 }
 

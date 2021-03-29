@@ -26,6 +26,8 @@ let title_3 = svg3.append("text")
 
     //dynamically change graph 
 function set_graph3(N, genre){
+    d3.select("#graph3").select("g").select("g").selectAll("text").remove()
+    d3.select("#graph3").select("g").select("g").selectAll("rect").remove()
     d3.csv(filename).then(function(data) {
         // let old_genre = genre
         data = get_top_publisher(data.slice(0,N), genre)
@@ -55,11 +57,11 @@ function set_graph3(N, genre){
         tooltip_3.html(html)
             .style("left", `${(d3.event.pageX) + 30}px`)
             .style("top", `${(d3.event.pageY) - 80}px`)
-            .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
+            // .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
             .style("background-color", "#FFFFFF")
             .transition()
             .duration(200)
-            .style("opacity", 0.9)
+            .style("opacity", 1)
             .attr("transform", `translate(${margin.left}, ${margin.top + 200})`)
     };
 
@@ -68,6 +70,7 @@ function set_graph3(N, genre){
         // Compute the position of each group on the pie:
         let pie = d3.pie()
             .value(function(d) { return d.value; })
+            .sort(function(x, y) { return d3.ascending(x.key, y.key);} )
 
         // map to data
         let build_pie = svg3.selectAll("path")
@@ -116,7 +119,7 @@ function set_graph3(N, genre){
               .attr("transform", function(d,i){
                 return `translate(${(graph_3_width - 500)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
               });
-              
+
         //match text and color squares
         let text_elem = my_legend.selectAll("text") 
             .data(pie(d3.entries(data)))
@@ -146,9 +149,10 @@ function set_graph3(N, genre){
 }
 
 
-//clean data to get hashmap of publishers for user inputted genre
+//clean data to get hashmap of top ten publishers for user inputted genre
 function get_top_publisher(data, genre){
     let genree = {}
+    let ne = {}
     data.forEach(function(a) {  
         if(a.Genre ==  genre){
             if(a.Publisher in genree){
@@ -159,7 +163,13 @@ function get_top_publisher(data, genre){
             }
         }
     });
-    return genree
+    var arr = Object.keys(genree).map(function(d) { return [d, genree[d]]})
+    arr.sort(function(x,y) {return y[1] - x[1]})
+    console.log(arr)
+    arr.slice(0,10).forEach(function(d){
+        ne[d[0]] = d[1]
+    })
+    return ne
 }
 
 //on page render set map with top 50 games
