@@ -49,7 +49,10 @@
                     region the pie graph displays. The reason I chose a pie graph was because I not only wanted to show which genre was the most popular in the region, but also
                     how that genre compared to the rest of the genres in the region. This is important because sometimes there may be a very clear dominant genre while other cases 
                     (depending on region and number of video games considered) there won't be. I define "popular" by the total number of sales in the selected region. I define popularity
-                    by global sales in this case.
+                    by global sales in this case.<br>
+                    3) For question 3 I also implemented a pie graph, similar to the reasons stated in question 2. I define most popular in this instance as 
+                    the publisher with the most global sales for a particular genre of games. I limit the pie chart to displaying only the top 10
+                    publishers per genre to help with aesthetics, also this decreases unecessary clutter of small publishers with very few sales.
                 </p>
         </div>
         <div class="col-lg-6">
@@ -59,7 +62,20 @@
                 <label for="numb">Top (0-16600) Video Games: </label><br>
                 <input type="number" id="numb" value=0 min=0 max=16600><br>
                 <label for="numb">Genre: </label><br>
-                <input type="text" id="genre" placeholder="Ex: Action" value=""><br>
+                <!-- <input type="text" id="genre" placeholder="Ex: Action" value=""><br> -->
+                <select id = "genre" name = "genre">
+                    <option value = "Action">Action</option>
+                    <option value = "Adventure">Adventure</option>
+                    <option value = "Fighting">Fighting</option>
+                    <option value = "Misc">Misc</option>
+                    <option value = "Platform">Platform</option>
+                    <option value = "Puzzle">Puzzle</option>
+                    <option value = "Racing">Racing</option>
+                    <option value = "Role-Playing">Role-Playing</option>
+                    <option value = "Shooter">Shooter</option>
+                    <option value = "Simulation">Simulation</option>
+                    <option value = "Sports">Sports</option>
+                </select>
                 <input Type=Button class="btn btn-info" Value="Submit" onClick="set_graph3(thisForm2.numb.value, thisForm2.genre.value)">
             </form><br/>
             <p style="font-size: 10px;" > 
@@ -89,11 +105,11 @@
                     each button for all the possible genres and have text to speach assistance reading each option to them. 
                 </p>
                 <p style="font-size: 12px;" > 
-                    5) When designing the interactive capabilities of the graphs, I have created alternative methods, such as more buttons, to guide text
-                    to speach users better than the custom inputs I have right now. However, this is a tradeoff between aesthetics and inclusiveness, which should not
-                    be a debate but if I were pushing this dashboard I would simply have two versions, one with more button options and one without. Furthermore,
-                    I could have included tooltips on the bar graph to help vision impaired users get more info about each bar, the reason I did not was simply
-                    out of time constraint.
+                    5) When designing the interactive capabilities of the graphs, I could have created a more accesible way to toggle number of songs being considered in graphs 2 and 3, such as maybe buttons
+                    that increase by 100. The typing aspect, as well as the limited increments from the up/down buttons, hinders people who may find it hard to type
+                    to properly pick a song. I have included default values but customization may be a hastle. If I were designing purely for aesthetics, then buttons of numbers
+                    may not be pleasing, however if I were to push this product to the public, I should have included a version that caters towards those that
+                    may not be able to properly enter parameters to my graphs.
         </div>
     </div>
     <!--Feel free to add more JavaScript files as needed-->

@@ -87,7 +87,7 @@ function set_graph3(N, genre){
             .attr('d', arcc)
             .attr('fill', function(d){ return(color(d.data.key)) })
             .attr("transform", function(d,i){
-                return `translate(${(margin.left - 350)} , ${margin.top - 25})`; //Set pie graph location
+                return `translate(${(margin.left - 375)} , ${margin.top - 25})`; //Set pie graph location
               })
             .attr("stroke", "white")
             .style("stroke-width", "2px")
@@ -115,7 +115,7 @@ function set_graph3(N, genre){
               .attr("height", 10)
               .attr("fill", function(d){ return(color(d.data.key)) })
               .attr("transform", function(d,i){
-                return `translate(${(graph_3_width - 500)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
+                return `translate(${(graph_3_width - 550)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
               });
 
         //match text and color squares
@@ -133,7 +133,7 @@ function set_graph3(N, genre){
             .attr("x", 14)
             .style("font-size", 12)
             .attr("transform", function(d,i){
-                return `translate(${(graph_3_width - 500)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
+                return `translate(${(graph_3_width - 550)} , ${(i * 15 - 75)})`; // place each legend on the right and bump each one down 15 pixels
               });
 
         // my_legend.selectAll("rect").exit().remove();
