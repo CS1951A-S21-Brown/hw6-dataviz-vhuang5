@@ -57,7 +57,6 @@ function set_graph3(N, genre){
         tooltip_3.html(html)
             .style("left", `${(d3.event.pageX) + 30}px`)
             .style("top", `${(d3.event.pageY) - 80}px`)
-            .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
             .style("background-color", "#FFFFFF")
             .transition()
             .duration(200)
@@ -70,7 +69,6 @@ function set_graph3(N, genre){
         // Compute the position of each group on the pie:
         let pie = d3.pie()
             .value(function(d) { return d.value; })
-            .sort(function(x, y) { return d3.ascending(x.key, y.key);} )
 
         // map to data
         let build_pie = svg3.selectAll("path")
