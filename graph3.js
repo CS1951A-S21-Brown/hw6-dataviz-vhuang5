@@ -45,7 +45,7 @@ function set_graph3(N, genre){
 
 // set the color scale
     let color = d3.scaleOrdinal()
-        .domain(Object.keys(data))
+        .domain(data)
         .range(["#E5E1EE", "#dffdff", "#90bede", "#68edc6", "#90f3ff", "#272932", "#4d7ea8", "#828489", "#9e90a2", "#b6c2d9", "#bffff1"]);
 
         // Mouseover function to display the tooltip on hover
@@ -57,7 +57,7 @@ function set_graph3(N, genre){
         tooltip_3.html(html)
             .style("left", `${(d3.event.pageX) + 30}px`)
             .style("top", `${(d3.event.pageY) - 80}px`)
-            // .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
+            .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
             .style("background-color", "#FFFFFF")
             .transition()
             .duration(200)
@@ -165,7 +165,6 @@ function get_top_publisher(data, genre){
     });
     var arr = Object.keys(genree).map(function(d) { return [d, genree[d]]})
     arr.sort(function(x,y) {return y[1] - x[1]})
-    console.log(arr)
     arr.slice(0,10).forEach(function(d){
         ne[d[0]] = d[1]
     })

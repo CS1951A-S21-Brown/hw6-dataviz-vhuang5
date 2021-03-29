@@ -52,7 +52,7 @@ function set_map(N, region){
 
 // set the color scale
     let color = d3.scaleOrdinal()
-        .domain(Object.keys(data))
+        .domain(data)
         .range(["#E5E1EE", "#dffdff", "#90bede", "#68edc6", "#90f3ff", "#272932", "#4d7ea8", "#828489", "#9e90a2", "#b6c2d9", "#bffff1"]);
 
         // Mouseover function
