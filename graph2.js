@@ -26,17 +26,25 @@ let title = svg2.append("text")
 
     //dynamically change graph 
 function set_map(N, region){
+    //reset legend
     d3.select("#graph2").select("g").select("g").selectAll("text").remove()
     d3.select("#graph2").select("g").select("g").selectAll("rect").remove()
+
     d3.csv(filename).then(function(data) {
         data = get_top_regions(data.slice(0,N))
         data = data[region]
+        temp = {}
         for (var key in data){
             if (!data[key] > 0){
                 delete data[key];
             }
         }
-        console.log(data)
+        var arr = Object.keys(data).map(function(d) { return [d, data[d]]})
+        arr.sort(function(x,y) {return y[1] - x[1]})
+        arr.forEach(function(d){
+            temp[d[0]] = d[1]
+        })
+        data = temp
         total_sales = 0.0
         max = 0.0
         max_key = ""
@@ -48,7 +56,6 @@ function set_map(N, region){
             }
             total_sales += data[key]
         }
-        console.log(total_sales)
 
 // set the color scale
     let color = d3.scaleOrdinal()
@@ -64,7 +71,8 @@ function set_map(N, region){
         tooltip.html(html)
             .style("left", `${(d3.event.pageX) + 30}px`)
             .style("top", `${(d3.event.pageY) - 80}px`)
-            .style("box-shadow", `5px 5px 5px ${color(d.data.key)}`)
+            .style("border", "solid")
+            .style("border-width", "1px")
             .style("background-color", "#FFFFFF")
             .transition()
             .duration(200)
@@ -76,7 +84,7 @@ function set_map(N, region){
         // initialize pie slice values
         let pie = d3.pie()
             .value(function(d) { return d.value; })
-            .sort(function(x, y) { return d3.ascending(x.key, y.key);} )
+            .sort(function(x, y) { return d3.ascending(x.value, y.value);} )
 
         // map to data
         let build_pie = svg2.selectAll("path")
@@ -106,6 +114,7 @@ function set_map(N, region){
         //make a legend
  
         let my_legend = svg2.select("g.legend");
+
         my_legend.exit().remove();
         //make color squares for legend
         let rectangles = my_legend.selectAll("rect")
@@ -152,15 +161,14 @@ function set_map(N, region){
 
 //clean data, return hashmap of countries as keys and values as a hashmap of genre, total sale KV pairs
 function get_top_regions(data){
+    //initialize hashmaps
     var genre_NA = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     var genre_EU = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     var genre_JP = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     var genre_Other = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     var genre_Global = {Action: 0.0, Adventure: 0.0, Fighting: 0.0, Misc: 0.0, Platform: 0.0, Puzzle: 0.0, Racing: 0.0, Role_playing: 0.0, Shooter: 0.0, Simulation: 0.0, Sports: 0.0}   
     let hash_countries = {NA: genre_NA, EU: genre_EU, JP: genre_JP, Other: genre_Other, Global: genre_Global}; 
-    // console.log(hash_countries)
     data.forEach(function(a) {  
-        // console.log(a)
         let n = a.Genre
         if(!(a.Genre in genre_NA)){
             n = "Role_playing"
@@ -174,5 +182,5 @@ function get_top_regions(data){
     return hash_countries;
 }
 
-//on page render set map with top 50 games
-set_map(50, "NA")
+//on page render set map with top 100 games
+set_map(100, "NA")

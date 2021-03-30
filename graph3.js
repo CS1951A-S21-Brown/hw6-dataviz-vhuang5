@@ -26,22 +26,20 @@ let title_3 = svg3.append("text")
 
     //dynamically change graph 
 function set_graph3(N, genre){
+    //reset legend
     d3.select("#graph3").select("g").select("g").selectAll("text").remove()
     d3.select("#graph3").select("g").select("g").selectAll("rect").remove()
+
     d3.csv(filename).then(function(data) {
-        // let old_genre = genre
         data = get_top_publisher(data.slice(0,N), genre)
         max = 0.0
         max_key = ""
-        // keys = []
         for (var key in data){ //used to find most popular publisher to display in title
             if (data[key] >= max){
                 max = data[key]
                 max_key = key
             }
-            // keys.push(key)
         }
-        console.log(data)
 
 // set the color scale
     let color = d3.scaleOrdinal()
@@ -57,6 +55,8 @@ function set_graph3(N, genre){
         tooltip_3.html(html)
             .style("left", `${(d3.event.pageX) + 30}px`)
             .style("top", `${(d3.event.pageY) - 80}px`)
+            .style("border", "solid")
+            .style("border-width", "1px")
             .style("background-color", "#FFFFFF")
             .transition()
             .duration(200)
@@ -64,9 +64,8 @@ function set_graph3(N, genre){
             .attr("transform", `translate(${margin.left}, ${margin.top + 200})`)
     };
 
-// A function that create / update the plot for a given variable:
 
-        // Compute the position of each group on the pie:
+        // initialize pie slice values
         let pie = d3.pie()
             .value(function(d) { return d.value; })
 
